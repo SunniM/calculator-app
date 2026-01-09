@@ -75,7 +75,7 @@ pipeline{
 
         stage('Test'){
             when {
-                expression {params.SKIP_TEST == false}
+                expression {params.SKIP_TESTS == false}
             }
             steps {
                 echo 'Executing JUnit tests...'
