@@ -64,6 +64,14 @@ pipeline{
                 '''
             }
         }
+        stage('Build') {
+            steps{
+            echo 'Building the application with Maven...'
+            echo 'Maven version:'
+            sh './mvnw -version'
+            sh './mvnw clean compile'
+            }
+        }
     }
 
     post{
