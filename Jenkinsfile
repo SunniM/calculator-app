@@ -9,7 +9,7 @@ pipeline{
     }
 
     options {
-        buildDisarder(logRotator(numToKeepStr: '10'))
+        buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 30, unit: 'MINUTES')
         timestamps()
         disableConcurrentBuilds()
@@ -18,7 +18,7 @@ pipeline{
     parameters {
         choice(
             name: 'ENVIRONMENT', 
-            choice: ['dev', 'staging', 'prod'],
+            choices: ['dev', 'staging', 'prod'],
             description: 'Target deployment environment'
         )
         booleanParam(
