@@ -41,26 +41,39 @@ pipeline{
     stages {
         stage('Initializing'){
             steps {
-                echo '==========================================='
+                echo """'==========================================='
                 echo '   Jenkins Pipeline - Calculator Demo'
                 echo '==========================================='
                 echo "Application: ${APP_NAME} v${APP_VERSION}"
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Environment: ${params.ENVIRONMENT}"
                 echo "Workspace: ${WORKSPACE}"
-                echo '==========================================='
+                echo '==========================================='"""
+            }
+        }
+        stage('Checkout'){
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+                sh '''
+                    echo "Current directory contents:"
+                    ls -la
+                    echo ""
+                    echo "Java source files:"
+                    find . -name "*.java" -type f 2>/dev/null || true                
+                '''
             }
         }
     }
 
     post{
         always{
-            echo '==========================================='
+            echo """'==========================================='
             echo '   Pipeline Execution Complete'
             echo '==========================================='
             echo "Result: ${currentBuild.currentResult}"
             echo "Duration: ${currentBuild.durationString}"
-            echo '==========================================='
+            echo '==========================================='"""
         }
         success {
             echo 'Pipeline Succeeded! 🎉'
