@@ -34,9 +34,9 @@ pipeline{
         )
     }
 
-    tools {
-        maven 'Maven-3.9'
-    }
+    // tools {
+    //     maven 'Maven-3.9'
+    // }
 
     stages {
         stage('Initializing'){
