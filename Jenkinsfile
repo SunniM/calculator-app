@@ -109,7 +109,7 @@ pipeline{
         
         stage('Build Docker Image') {
             when {
-                expressions { params.BUILD_DOCKER == true }
+                expression { params.BUILD_DOCKER == true }
             }
             steps {
                 echo "Building Docker Image: ${DOCKER_IMAGE}:${DOCKER_TAG}"
