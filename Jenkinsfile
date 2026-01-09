@@ -96,6 +96,14 @@ pipeline{
                 }
             }
         }
+        stage('Package') }
+            steps {
+                echo 'Packacging Application...'
+                echo 'Creating JAR file using Maven...'
+                sh './mvnw package -DskipTests -B'
+                echo 'Built artifacts:'
+                sh 'ls -la target/*.jar'
+            }
     }
 
     post{
