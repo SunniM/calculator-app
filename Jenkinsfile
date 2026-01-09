@@ -96,6 +96,7 @@ pipeline{
                 }
             }
         }
+
         stage('Package') {
             steps {
                 echo 'Packacging Application...'
@@ -103,6 +104,20 @@ pipeline{
                 sh './mvnw package -DskipTests -B'
                 echo 'Built artifacts:'
                 sh 'ls -la target/*.jar'
+            }
+        }
+        
+        stage('Build Docker Image') {
+            when {
+                expressions { params.BUILD_DOCKER == true }
+            }
+            steps {
+                echo "Building Docker Image: ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                sh """
+                    docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+                    docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
+                    docker images | grep ${DOCKER_IMAGE} || true
+                """
             }
         }
     }
