@@ -41,14 +41,14 @@ pipeline{
     stages {
         stage('Initializing'){
             steps {
-                echo """'==========================================='
+                echo '==========================================='
                 echo '   Jenkins Pipeline - Calculator Demo'
                 echo '==========================================='
                 echo "Application: ${APP_NAME} v${APP_VERSION}"
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Environment: ${params.ENVIRONMENT}"
                 echo "Workspace: ${WORKSPACE}"
-                echo '==========================================='"""
+                echo '==========================================='
             }
         }
         stage('Checkout'){
