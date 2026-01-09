@@ -72,6 +72,30 @@ pipeline{
             sh './mvnw clean compile'
             }
         }
+
+        stage('Test'){
+            when {
+                expression {params.SKIP_TEST == false}
+            }
+            steps {
+                echo 'Executing JUnit tests...'
+                sh './mvnw test'
+            }
+            post {
+                always {
+                    junit(
+                        testResults: 'target/surefire-reports/*.xml',
+                        allowEmptyResults: true
+                    )
+                }
+                success {
+                    echo 'All tests passed successfully!'
+                }
+                failure {
+                    echo 'Some tests failed'
+                }
+            }
+        }
     }
 
     post{
